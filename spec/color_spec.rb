@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Chroma::Color do
@@ -17,8 +19,8 @@ describe Chroma::Color do
     end
 
     it 'does not equal another instance of a different color' do
-      expect(red).to_not eql(blue)
-      expect(red).to_not eq(blue)
+      expect(red).not_to eql(blue)
+      expect(red).not_to eq(blue)
     end
   end
 

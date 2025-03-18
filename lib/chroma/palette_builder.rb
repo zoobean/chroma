@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   # Class internally used to build custom palettes from {Chroma.define_palette}.
   class PaletteBuilder
@@ -6,8 +8,8 @@ module Chroma
     #
     # @param block [Proc]                             the palette definition block
     # @return      [PaletteBuilder::PaletteEvaluator] lazy palette generator
-    def self.build(&block)
-      new(&block).build
+    def self.build(&)
+      new(&).build
     end
 
     # @param block [Proc] the palette definition block
@@ -22,8 +24,6 @@ module Chroma
       dsl.instance_eval(&@block)
       dsl.evaluator
     end
-
-    private
 
     # Internal class for delaying evaluating a color to generate a
     # final palette

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Chroma::Color do
   let(:red)    { 'red'.paint }
   let(:black)  { 'black'.paint }
@@ -11,15 +13,15 @@ describe Chroma::Color do
     end
 
     it 'returns false for light colors' do
-      expect(white).to_not  be_dark
-      expect(yellow).to_not be_dark
+      expect(white).not_to  be_dark
+      expect(yellow).not_to be_dark
     end
   end
 
   describe '#light?' do
     it 'returns false for dark colors' do
-      expect(red).to_not   be_light
-      expect(black).to_not be_light
+      expect(red).not_to   be_light
+      expect(black).not_to be_light
     end
 
     it 'returns true for light colors' do

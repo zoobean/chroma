@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :generate_palette do |expected|
   expected.map!(&:paint)
 
@@ -13,9 +15,9 @@ RSpec::Matchers.define :have_format do |expected|
 end
 
 RSpec::Matchers.define :be_dark do
-  match { |value| value.dark? }
+  match(&:dark?)
 end
 
 RSpec::Matchers.define :be_light do
-  match { |value| value.light? }
+  match(&:light?)
 end

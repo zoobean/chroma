@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module ColorModes
     class << self
@@ -29,16 +31,16 @@ module Chroma
       #     alias_method :to_ary, :to_a
       #     end
       def build(name, *attrs)
-        class_eval <<-EOS
+        class_eval <<-EOS, __FILE__, __LINE__ + 1
           class #{name}
-            attr_accessor #{(attrs + [:a]).map{|attr| ":#{attr}"} * ', '}
+            attr_accessor #{(attrs + [:a]).map { |attr| ":#{attr}" } * ', '}
 
             def initialize(#{attrs * ', '}, a = 1)
-              #{attrs.map{|attr| "@#{attr}"} * ', '}, @a = #{attrs * ', '}, a
+              #{attrs.map { |attr| "@#{attr}" } * ', '}, @a = #{attrs * ', '}, a
             end
 
             def to_a
-              [#{attrs.map{|attr| "@#{attr}"} * ', '}, @a]
+              [#{attrs.map { |attr| "@#{attr}" } * ', '}, @a]
             end
 
             alias_method :to_ary, :to_a
@@ -46,8 +48,6 @@ module Chroma
         EOS
       end
     end
-
-    private
 
     build 'Rgb', :r, :g, :b
     build 'Hsl', :h, :s, :l

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # General
 require 'chroma/version'
 require 'chroma/errors'
@@ -107,12 +109,10 @@ module Chroma
     # @param block [Proc]                        the palette definition block
     # @raise       [Errors::PaletteDefinedError] if the palette is already defined
     # @return      [Symbol, String]              the name of the custom palette
-    def define_palette(name, &block)
-      if Harmonies.method_defined? name
-        raise Errors::PaletteDefinedError, "Palette `#{name}' already exists"
-      end
+    def define_palette(name, &)
+      raise Errors::PaletteDefinedError, "Palette `#{name}' already exists" if Harmonies.method_defined? name
 
-      palette_evaluator = PaletteBuilder.build(&block)
+      palette_evaluator = PaletteBuilder.build(&)
 
       Harmonies.send(:define_method, name) do
         palette_evaluator.evaluate(@color)
@@ -126,7 +126,7 @@ module Chroma
     end
 
     def named_colors_map
-      @named_colors ||= YAML.load_file(File.expand_path('../support/named_colors.yml', __FILE__))
+      @named_colors_map ||= YAML.load_file(File.expand_path('support/named_colors.yml', __dir__))
     end
   end
 end

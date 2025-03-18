@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class String
   # Creates {Chroma::Color} directly from a string representing a color.
   #

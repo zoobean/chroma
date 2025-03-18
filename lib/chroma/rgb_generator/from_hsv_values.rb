@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module RgbGenerator
     class FromHsvValues < Base

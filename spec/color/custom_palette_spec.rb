@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Chroma::Color, '#custom_palette' do
   let(:subject) do
     'red'.paint.custom_palette do
@@ -9,8 +11,8 @@ describe Chroma::Color, '#custom_palette' do
   end
 
   it 'generates the correct colors' do
-    expect(subject).
-      to generate_palette %w(#ff0000 #ffff00 #00ffff #ffff33 #808080)
+    expect(subject)
+      .to generate_palette %w[#ff0000 #ffff00 #00ffff #ffff33 #808080]
   end
 
   it 'keeps the same format' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Chroma::Color do
   context 'with serializers' do
     let(:green)       { 'green'.paint }

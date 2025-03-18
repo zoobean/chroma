@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Chroma, '.define_palette' do
   def add_palette
     Chroma.define_palette :foo do
@@ -9,17 +11,17 @@ describe Chroma, '.define_palette' do
   end
 
   def remove_palette
-    if Chroma::Harmonies.method_defined? :foo
-      Chroma::Harmonies.send(:remove_method, :foo)
-    end
+    return unless Chroma::Harmonies.method_defined? :foo
+
+    Chroma::Harmonies.send(:remove_method, :foo)
   end
 
-  after(:example) { remove_palette }
+  after { remove_palette }
 
   let(:red) { '#ff0000'.paint }
 
   it 'adds the new palette method' do
-    expect(red.palette).to_not respond_to(:foo)
+    expect(red.palette).not_to respond_to(:foo)
     add_palette
     expect(red.palette).to respond_to(:foo)
   end
@@ -27,8 +29,8 @@ describe Chroma, '.define_palette' do
   it 'generates the correct colors' do
     add_palette
 
-    expect(red.palette.foo).
-      to generate_palette %w(#ff0000 #ffff00 #00ffff #ffff33 #808080)
+    expect(red.palette.foo)
+      .to generate_palette %w[#ff0000 #ffff00 #00ffff #ffff33 #808080]
   end
 
   it 'keeps the same format' do

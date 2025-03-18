@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   class Color
     # Attribute methods for {Color}.
@@ -45,7 +47,7 @@ module Chroma
       #
       # @return [Float]
       def brightness
-        (@rgb.r * 299 + @rgb.g * 587 + @rgb.b * 114) / 1000.0
+        ((@rgb.r * 299) + (@rgb.g * 587) + (@rgb.b * 114)) / 1000.0
       end
 
       private

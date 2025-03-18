@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module RgbGenerator
     class FromString < Base
@@ -20,11 +22,11 @@ module Chroma
           hex_match = '[0-9a-fA-F]'
 
           {
-            rgb:  { regex: /rgb#{permissive_match3}/,        class_name: :FromRgbValues },
-            rgba: { regex: /rgba#{permissive_match4}/,       class_name: :FromRgbValues },
-            hsl:  { regex: /hsl#{permissive_match3}/,        class_name: :FromHslValues },
-            hsla: { regex: /hsla#{permissive_match4}/,       class_name: :FromHslValues },
-            hsv:  { regex: /hsv#{permissive_match3}/,        class_name: :FromHsvValues },
+            rgb: { regex: /rgb#{permissive_match3}/, class_name: :FromRgbValues },
+            rgba: { regex: /rgba#{permissive_match4}/, class_name: :FromRgbValues },
+            hsl: { regex: /hsl#{permissive_match3}/, class_name: :FromHslValues },
+            hsla: { regex: /hsla#{permissive_match4}/, class_name: :FromHslValues },
+            hsv: { regex: /hsv#{permissive_match3}/, class_name: :FromHsvValues },
             hsva: { regex: /hsva#{permissive_match4}/,       class_name: :FromHsvValues },
             hex3: { regex: /^#?#{"(#{hex_match}{1})" * 3}$/, class_name: :FromHexStringValues, builder: :from_hex3 },
             hex6: { regex: /^#?#{"(#{hex_match}{2})" * 3}$/, class_name: :FromHexStringValues, builder: :from_hex6 },
@@ -35,7 +37,7 @@ module Chroma
 
       # @param format [Symbol] unused
       # @param input  [String] input to parse
-      def initialize(format, input)
+      def initialize(_format, input)
         @input = normalize_input(input)
       end
 
@@ -48,7 +50,7 @@ module Chroma
       private
 
       def get_generator
-        if color = Chroma.hex_from_name(@input)
+        if (color = Chroma.hex_from_name(@input))
           format = :name
         elsif @input == 'transparent'
           return FromRgbValues.new(:name, 0, 0, 0, 0)
@@ -63,11 +65,9 @@ module Chroma
           !(match = h[:regex].match(color)).nil?
         end
 
-        if match.nil?
-          raise Errors::UnrecognizedColor, "Unrecognized color `#{color}'"
-        end
+        raise Errors::UnrecognizedColor, "Unrecognized color `#{color}'" if match.nil?
 
-        build_generator(match[1..-1], hash[:class_name], hash[:builder], format)
+        build_generator(match[1..], hash[:class_name], hash[:builder], format)
       end
 
       def build_generator(args, class_name, builder, format)
@@ -77,7 +77,8 @@ module Chroma
       end
 
       def normalize_input(input)
-        input.clone.tap do |str|
+        unfreezed_str = +input.clone
+        unfreezed_str.tap do |str|
           str.strip!
           str.downcase!
         end
