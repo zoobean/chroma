@@ -77,8 +77,8 @@ module Chroma
       end
 
       def normalize_input(input)
-        str = +(input.clone)
-        str.tap do |str|
+        unfreezed_str = +input.clone
+        unfreezed_str.tap do |str|
           str.strip!
           str.downcase!
         end
