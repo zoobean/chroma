@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   class Color
     # Methods for serializing {Color} to different color mode string formats.
@@ -117,7 +119,7 @@ module Chroma
         end
       end
 
-      alias_method :inspect, :to_s
+      alias inspect to_s
 
       # Converts to an instance of {ColorModes::Hsv}
       # @return [ColorModes::Hsv]
@@ -142,11 +144,9 @@ module Chroma
           to_2char_hex(n)
         end
 
-        if allow_3 && r[0] == r[1] && g[0] == g[1] && b[0] == b[1]
-          return "#{r[0]}#{g[0]}#{b[0]}"
-        end
+        return "#{r[0]}#{g[0]}#{b[0]}" if allow_3 && r[0] == r[1] && g[0] == g[1] && b[0] == b[1]
 
-        "#{[r, g, b].flatten * ''}"
+        ([r, g, b].flatten * '').to_s
       end
 
       def to_basic_hex8
@@ -155,7 +155,7 @@ module Chroma
           to_2char_hex(@rgb.r),
           to_2char_hex(@rgb.g),
           to_2char_hex(@rgb.b)
-        ].join('')
+        ].join
       end
 
       def to_hs(third)

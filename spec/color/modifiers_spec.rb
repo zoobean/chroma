@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Chroma::Color do
   let(:red)    { 'red'.paint }
   let(:yellow) { 'yellow'.paint }

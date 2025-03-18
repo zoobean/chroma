@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module Helpers
     module Bounders
@@ -22,7 +24,7 @@ module Chroma
       # @return  [Numeric]
       def bound_alpha(a)
         a = a.to_f
-        a = 1 if a < 0 || a > 1
+        a = 1 if a.negative? || a > 1
         a
       end
 

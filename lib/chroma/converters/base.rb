@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module Converters
     # Base class for converting one color mode to another.

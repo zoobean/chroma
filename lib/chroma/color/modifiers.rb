@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   class Color
     # Methods that return a new modified {Color}.
@@ -12,7 +14,7 @@ module Chroma
       # @return       [Color]
       def lighten(amount = 10)
         hsl = self.hsl
-        hsl.l = clamp01(hsl.l + amount / 100.0)
+        hsl.l = clamp01(hsl.l + (amount / 100.0))
         self.class.new(hsl, @format)
       end
 
@@ -46,7 +48,7 @@ module Chroma
       # @return       [Color]
       def darken(amount = 10)
         hsl = self.hsl
-        hsl.l = clamp01(hsl.l - amount / 100.0)
+        hsl.l = clamp01(hsl.l - (amount / 100.0))
         self.class.new(hsl, @format)
       end
 
@@ -60,7 +62,7 @@ module Chroma
       # @return       [Color]
       def desaturate(amount = 10)
         hsl = self.hsl
-        hsl.s = clamp01(hsl.s - amount / 100.0)
+        hsl.s = clamp01(hsl.s - (amount / 100.0))
         self.class.new(hsl, @format)
       end
 
@@ -74,7 +76,7 @@ module Chroma
       # @return       [Color]
       def saturate(amount = 10)
         hsl = self.hsl
-        hsl.s = clamp01(hsl.s + amount / 100.0)
+        hsl.s = clamp01(hsl.s + (amount / 100.0))
         self.class.new(hsl, @format)
       end
 
@@ -88,7 +90,7 @@ module Chroma
         desaturate(100)
       end
 
-      alias_method :greyscale, :grayscale
+      alias greyscale grayscale
 
       # Sets color opacity to the given 'amount'.
       #
@@ -115,7 +117,7 @@ module Chroma
       def spin(amount)
         hsl = self.hsl
         hue = (hsl.h.round + amount) % 360
-        hsl.h = hue < 0 ? 360 + hue : hue
+        hsl.h = hue.negative? ? 360 + hue : hue
         self.class.new(hsl, @format)
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   # The main class to represent colors.
   class Color
@@ -94,8 +96,8 @@ module Chroma
     #
     # @param block [Proc] the palette definition block
     # @return [Array<Color>] palette array of colors
-    def custom_palette(&block)
-      PaletteBuilder.build(&block).evaluate(self)
+    def custom_palette(&)
+      PaletteBuilder.build(&).evaluate(self)
     end
 
     private

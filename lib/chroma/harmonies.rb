@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   # Class to hold all palette methods.
   class Harmonies
@@ -82,9 +84,9 @@ module Chroma
 
       hsl = @color.hsl
       part = 360 / slices
-      hsl.h = ((hsl.h - (part * size >> 1)) + 720) % 360
+      hsl.h = ((hsl.h - ((part * size) >> 1)) + 720) % 360
 
-      palette = (size - 1).times.reduce([@color]) do |arr, n|
+      palette = (size - 1).times.reduce([@color]) do |arr, _n|
         hsl.h = (hsl.h + part) % 360
         arr << Color.new(hsl, @color.format)
       end
@@ -109,7 +111,7 @@ module Chroma
       h, s, v = @color.hsv
       modification = 1.0 / size
 
-      palette = size.times.map do
+      palette = Array.new(size) do
         Color.new(ColorModes::Hsv.new(h, s, v), @color.format).tap do
           v = (v + modification) % 1
         end

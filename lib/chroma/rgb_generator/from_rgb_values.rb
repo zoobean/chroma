@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module RgbGenerator
     class FromRgbValues < Base
@@ -8,7 +10,10 @@ module Chroma
       # @param a      [String, Numeric] alpha value
       def initialize(format, r, g, b, a = 1)
         @format = format || :rgb
-        @r, @g, @b, @a = r, g, b, a
+        @r = r
+        @g = g
+        @b = b
+        @a = a
       end
 
       # Generates a {ColorModes::Rgb}.

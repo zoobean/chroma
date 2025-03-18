@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chroma
   module Converters
     # Class to convert a color mode to {ColorModes::Hsl}.
@@ -21,9 +23,9 @@ module Chroma
           h = 0
         else
           h = case max
-              when r then (g - b) / d + (g < b ? 6 : 0)
-              when g then (b - r) / d + 2
-              when b then (r - g) / d + 4
+              when r then ((g - b) / d) + (g < b ? 6 : 0)
+              when g then ((b - r) / d) + 2
+              when b then ((r - g) / d) + 4
               end
 
           h /= 6.0
